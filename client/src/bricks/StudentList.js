@@ -16,7 +16,7 @@ function StudentList (props) {
     const [searchBy, setSearchBy] = useState("")
 
     const filteredStudentList = useMemo(() => {
-       return props.studentList.filter((item) => {
+       return props.classroom.studentList.filter((item) => {
            return (
                item.firstname
                    .toLocaleLowerCase()
@@ -26,7 +26,7 @@ function StudentList (props) {
                    .includes(searchBy.toLocaleLowerCase())
            )
        })
-    }, [searchBy, props.studentList])
+    }, [searchBy, props.classroom.studentList])
 
     function handleSearch (e) {
         e.preventDefault();
