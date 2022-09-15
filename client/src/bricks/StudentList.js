@@ -39,16 +39,17 @@ function StudentList (props) {
 
     return (
       <div>
-        <Navbar bg="light">
+        <Navbar  collapseOnSelect expand="sm" bg="light">
             <div className="container-fluid">
                 <Navbar.Brand>Seznam studentů</Navbar.Brand>
-                <div>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse style={{ justifyContent: "right" }}>
                     <Form className="d-flex" onSubmit={handleSearch}>
                     <Form.Control id={"searchInput"} style={{maxWidth: "150px"}} type={"search"} placeholder="Search" aria-label="Search" onChange={handleSearchDelete}/>
                     <Button className="me-2" variant="outline-success" type="submit">
                         <Icon path={mdiMagnify} size={1}/>
                     </Button>
-                    <Button variant="outline-primary" onClick={() => {
+                    <Button className={"d-none d-md-block"} variant="outline-primary" onClick={() => {
                     setViewType((currentState) => {
                         if (currentState === "grid") return "table";
                         else return "grid";
@@ -58,10 +59,29 @@ function StudentList (props) {
                     {isGrid ? "Tabulka" : "Grid"}
                     </Button>
                     </Form>
-                </div>
+                </Navbar.Collapse>
             </div>
         </Navbar>
-        {isGrid ? <StudentGridList studentList={filteredStudentList} /> : <StudentTableList studentList={filteredStudentList}/>}
+          <div>
+              {filteredStudentList.length ? (
+                  <div className="container">
+                      <div className={"d-block d-md-none"}>
+                          <StudentGridList studentList={filteredStudentList}/>
+                      </div>
+                      <div className={"d-none d-md-block"}>
+                          {isGrid ? (
+                              <StudentGridList studentList={filteredStudentList}/>
+                          ) : (
+                              <StudentTableList studentList={filteredStudentList}/>
+                          )}
+                      </div>
+                  </div>
+              ) : (
+                  <div style={{margin: "16px auto", textAlign: "center"}}>
+                      Nejsou žádní studenti ke zobrazení
+                  </div>
+              )}
+          </div>
       </div>
     )
 }

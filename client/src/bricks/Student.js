@@ -3,6 +3,7 @@ import Icon from "@mdi/react";
 import Card from "react-bootstrap/Card";
 import { mdiAccountSchoolOutline, mdiIdentifier } from "@mdi/js";
 import { getColorByGrade } from "../helpers/common";
+import StudentSubjectGradeList from "./StudentSubjectGradeList";
 
 function Student (props) {
     return (
@@ -22,9 +23,16 @@ function Student (props) {
                         if (average) average = average.toFixed(1);
                         else average = "N";
                         return (
-                            <div key={subject.id}>
+                            <div key={subject.id} className={"d-flex justify-content-between"}>
                                 {subject.name}:{" "}
+                                <div>
                                 <b style={{ color: getColorByGrade(average) }}>{average}</b>
+                                <StudentSubjectGradeList
+                                    student={props.student}
+                                    subject={subject}
+                                    classroom={props.classroom}
+                                />
+                                </div>
                             </div>
                         );
                     })}
