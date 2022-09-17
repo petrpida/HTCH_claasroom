@@ -1,6 +1,15 @@
 import Icon from "@mdi/react";
 import {Button, Modal, Table} from 'react-bootstrap';
-import {mdiCalendar, mdiClipboardListOutline, mdiLoading, mdiPlus, mdiStar, mdiText, mdiWeight} from "@mdi/js";
+import {
+    mdiCalendar,
+    mdiClipboardListOutline,
+    mdiClose,
+    mdiLoading,
+    mdiPlus, mdiReload,
+    mdiStar,
+    mdiText,
+    mdiWeight
+} from "@mdi/js";
 import {useEffect, useMemo, useState} from 'react'
 import {getColorByGrade} from "../helpers/common";
 import StudentGradeForm from "./StudentGradeForm";
@@ -16,6 +25,15 @@ function StudentSubjectGradeList({student, subject, classroom}) {
     const handleAddGradeShow = () => setAddGradeShow(true);
     const handleShowModal = () => setShow(true);
     const handleCloseModal = () => setShow(false);
+
+    const handleGradeAdded = (grade) => {
+        if (studentSubjectGradeListCall.state === "success") {
+            setStudentSubjectGradeListCall({
+                state: "success",
+                data: [...studentSubjectGradeListCall.data, grade]
+            });
+        }
+    }
 
     const average = useMemo(() => {
         if (studentSubjectGradeListCall.state === "success") {
@@ -149,15 +167,34 @@ function StudentSubjectGradeList({student, subject, classroom}) {
                 )}
             </Modal.Body>
             <Modal.Footer>
-                <Button
-                    style={{ float: "right" }}
-                    variant="secondary"
-                    className="btn btn-success btn-sm"
-                    onClick={handleAddGradeShow}
-                >
-                    <Icon path={mdiPlus} size={1} />
-                    Přidat známku
-                </Button>
+                <div className="d-flex flex-row gap-2">
+                    <Button
+                        variant="light"
+                        className="text-muted"
+                        onClick={handleCloseModal}
+                    >
+                        <div className="d-flex flex-row gap-1 align-items-center">
+                            <Icon path={mdiClose} size={1}></Icon>
+                            <span>Zavřít</span>
+                        </div>
+                    </Button>
+                    <Button
+                        variant="light"
+                        className="text-muted"
+                        onClick={fetchData}
+                    >
+                        <Icon size={1} path={mdiReload}></Icon>
+                    </Button>
+                    <Button
+                        variant="success"
+                        onClick={handleAddGradeShow}
+                    >
+                        <div className="d-flex flex-row gap-1 align-items-center">
+                            <Icon path={mdiPlus} size={1}></Icon>
+                            <span>Přidat známku</span>
+                        </div>
+                    </Button>
+                </div>
             </Modal.Footer>
         </Modal>
         <StudentGradeForm
@@ -166,6 +203,7 @@ function StudentSubjectGradeList({student, subject, classroom}) {
             classroom={classroom}
             show={addGradeShow}
             setAddGradeShow={setAddGradeShow}
+            onComplete={(grade) => handleGradeAdded(grade)}
         />
         <Icon
             path={mdiClipboardListOutline}
