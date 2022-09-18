@@ -1,4 +1,5 @@
-import React, {useMemo, useState} from "react";
+import React, {useContext, useMemo, useState} from "react";
+import UserContext from "../UserProvider";
 
 import StudentTableList from "./StudentTableList";
 import StudentGridList from "./StudentGridList";
@@ -11,12 +12,19 @@ import Icon from "@mdi/react";
 import { mdiTable, mdiViewGridOutline, mdiMagnify } from "@mdi/js";
 
 function StudentList (props) {
+    const { isStudent, isParent, user } = useContext(UserContext);
     const [viewType, setViewType] = useState("grid");
     const isGrid = viewType === "grid";
     const [searchBy, setSearchBy] = useState("")
 
     const filteredStudentList = useMemo(() => {
        return props.classroom.studentList.filter((item) => {
+           if (isStudent())
+               return  item.id === user.student.id
+
+           if (isParent())
+               return user.students.some(student => student.id === item.id)
+
            return (
                item.firstname
                    .toLocaleLowerCase()

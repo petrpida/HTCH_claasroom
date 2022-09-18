@@ -1,12 +1,13 @@
 import {Button, Col, Form, Modal, Row} from "react-bootstrap";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 
-function StudentGradeForm({student, subject, classroom, show, setAddGradeShow, onComplete}) {
+function StudentGradeForm({student, subject, show, setAddGradeShow, onComplete, grade}) {
+    //console.log(grade)
     const defaultForm = {
         description: "",
         dateTs: new Date().toISOString().substring(0, 10),
-        grade: null,
+        grade: "",
         weight: 1,
     };
 
@@ -15,10 +16,24 @@ function StudentGradeForm({student, subject, classroom, show, setAddGradeShow, o
     const [studentAddGradeCall, setStudentAddGradeCall] = useState({
         state: 'inactive'
     });
+    //console.log(formData)
+
+    useEffect(() => {
+        if (grade) {
+            setFormData({
+                description: grade.description,
+                dateTs: new Date(grade.dateTs).toISOString().substring(0, 10),
+                grade: grade.grade,
+                weight: grade.weight
+            });
+        } else {
+            setFormData(defaultForm);
+        }
+    }, [grade]);
 
     const handleClose = () => {
-        setFormData(defaultForm)
-        setAddGradeShow(false)
+        setFormData(defaultForm);
+        setAddGradeShow({state: false});
     }
 
     const setField = (name, val) => {
@@ -39,6 +54,7 @@ function StudentGradeForm({student, subject, classroom, show, setAddGradeShow, o
             ...formData,
             studentId: student.id,
             subjectId: subject.id,
+            id: grade ? grade.id : null
         };
 
         if (!form.checkValidity()) {
@@ -47,7 +63,7 @@ function StudentGradeForm({student, subject, classroom, show, setAddGradeShow, o
         }
 
         setStudentAddGradeCall({state: 'pending'});
-        const res = await fetch(`http://localhost:3000/grade/create`, {
+        const res = await fetch(`http://localhost:3000/grade/${grade ? "update" : "create"}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -73,7 +89,7 @@ function StudentGradeForm({student, subject, classroom, show, setAddGradeShow, o
         <Modal show={show} onHide={handleClose}>
             <Form noValidate validated={validated} onSubmit={(e) => handleSubmit(e)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Přidat známku</Modal.Title>
+                    <Modal.Title>{grade ? "Upravit známku" : "Přidat známku"}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div>Žák: {student.firstname + " " + student.surname}</div>
@@ -155,7 +171,7 @@ function StudentGradeForm({student, subject, classroom, show, setAddGradeShow, o
                                 Zavřít
                             </Button>
                             <Button variant="primary" type="submit">
-                                Vytvořit
+                                {grade ? "Upravit" : "Přidat"}
                             </Button>
                         </div>
                     </div>

@@ -1,11 +1,15 @@
-import React from "react";
+import React, {useContext} from "react";
 import Icon from "@mdi/react";
 import Card from "react-bootstrap/Card";
 import { mdiAccountSchoolOutline, mdiIdentifier } from "@mdi/js";
 import { getColorByGrade } from "../helpers/common";
 import StudentSubjectGradeList from "./StudentSubjectGradeList";
+import UserContext from "../UserProvider";
 
 function Student (props) {
+    const { canShowDetail } = useContext(UserContext);
+    //console.log(props)
+
     return (
         <Card>
             <Card.Body>
@@ -22,6 +26,9 @@ function Student (props) {
                         let average = subject.averageGrade;
                         if (average) average = average.toFixed(1);
                         else average = "N";
+                        console.log(props.student.classroomId)
+                        const disabled = !canShowDetail(props.student.classroomId, subject.id);
+
                         return (
                             <div key={subject.id} className={"d-flex justify-content-between"}>
                                 {subject.name}:{" "}
@@ -31,6 +38,7 @@ function Student (props) {
                                     student={props.student}
                                     subject={subject}
                                     classroom={props.classroom}
+                                    disabled={disabled}
                                 />
                                 </div>
                             </div>

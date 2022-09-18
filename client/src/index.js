@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -8,21 +8,24 @@ import ClassroomDetailPage from "./routes/ClassroomDetailPage";
 import HomePage from "./routes/HomePage";
 import SubjectListPage from "./routes/SubjectListPage";
 import StudentListPage from "./routes/StudentListPage";
+import {UserProvider} from "./UserProvider";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-      <BrowserRouter>
-          <Routes>
-              <Route path="/" element={<App />}>
-                  <Route path="" element={<HomePage />} />
-                  <Route path="classroomDetail" element={<ClassroomDetailPage />} />
-                  <Route path="studentList" element={<StudentListPage />} />
-                  <Route path="subjectList" element={<SubjectListPage />} />
-              </Route>
-          </Routes>
-      </BrowserRouter>
-  </React.StrictMode>
+    <React.StrictMode>
+        <UserProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<App/>}>
+                        <Route path="" element={<HomePage/>}/>
+                        <Route path="classroomDetail" element={<ClassroomDetailPage/>}/>
+                        <Route path="studentList" element={<StudentListPage/>}/>
+                        <Route path="subjectList" element={<SubjectListPage/>}/>
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </UserProvider>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -4,33 +4,46 @@ import {
     mdiCalendar,
     mdiClipboardListOutline,
     mdiClose,
-    mdiLoading,
+    mdiLoading, mdiPencilOutline,
     mdiPlus, mdiReload,
     mdiStar,
     mdiText,
     mdiWeight
 } from "@mdi/js";
-import {useEffect, useMemo, useState} from 'react'
+import {useContext, useEffect, useMemo, useState} from 'react'
 import {getColorByGrade} from "../helpers/common";
 import StudentGradeForm from "./StudentGradeForm";
+import UserContext from "../UserProvider";
 
-function StudentSubjectGradeList({student, subject, classroom}) {
+function StudentSubjectGradeList({student, subject, classroom, disabled}) {
+    const {canEdit} = useContext(UserContext)
     const [isModalShown, setShow] = useState(false);
     const [studentSubjectGradeListCall, setStudentSubjectGradeListCall] =
         useState({
             state: "pending",
         });
-    const [addGradeShow, setAddGradeShow] = useState(false);
+    const [addGradeShow, setAddGradeShow] = useState({
+        state: false
+    });
 
-    const handleAddGradeShow = () => setAddGradeShow(true);
-    const handleShowModal = () => setShow(true);
+    const handleAddGradeShow = (data) => setAddGradeShow({state: true, data});
+    const handleShowModal = () => {
+        if (!disabled)
+            setShow(true)
+    };
     const handleCloseModal = () => setShow(false);
 
     const handleGradeAdded = (grade) => {
         if (studentSubjectGradeListCall.state === "success") {
+            let gradeList = [...studentSubjectGradeListCall.data]
+
+            if (grade.id) {
+                gradeList = gradeList.filter((g) => g.id === grade.id);
+            }
+
             setStudentSubjectGradeListCall({
                 state: "success",
-                data: [...studentSubjectGradeListCall.data, grade]
+                data: [...gradeList, grade]
             });
         }
     }
@@ -55,10 +68,6 @@ function StudentSubjectGradeList({student, subject, classroom}) {
         }
     }, [studentSubjectGradeListCall.state, studentSubjectGradeListCall.data]);
 
-    useEffect(() => {
-        if (isModalShown) fetchData();
-    }, [isModalShown, student, subject]);
-
     const fetchData = async () => {
         setStudentSubjectGradeListCall({state: "pending"});
 
@@ -68,12 +77,17 @@ function StudentSubjectGradeList({student, subject, classroom}) {
         if (res.status >= 400) {
             setStudentSubjectGradeListCall({state: "error", error: data});
         } else {
+            console.log(data)
             setStudentSubjectGradeListCall({state: "success", data});
         }
     };
 
+    useEffect(() => {
+        if (isModalShown) fetchData();
+    }, [isModalShown, student, subject]);
+
     return <>
-        <Modal show={isModalShown} onHide={handleCloseModal}>
+        <Modal show={isModalShown} onHide={handleCloseModal} className={"hidden"}>
             <Modal.Header closeButton>
                 <Modal.Title>Přehled známek</Modal.Title>
             </Modal.Header>
@@ -121,6 +135,7 @@ function StudentSubjectGradeList({student, subject, classroom}) {
                                 {studentSubjectGradeListCall.data.map((grade) => {
                                     return (
                                         <tr key={grade.id}>
+
                                             <td
                                                 style={{
                                                     color: getColorByGrade(grade.grade),
@@ -144,6 +159,16 @@ function StudentSubjectGradeList({student, subject, classroom}) {
                                             >
                                                 {new Date(grade.dateTs).toLocaleDateString()}
                                             </td>
+                                            {canEdit() &&
+                                                <td>
+                                                    <Icon
+                                                        size={0.8}
+                                                        path={mdiPencilOutline}
+                                                        style={{ color: 'orange', cursor: 'pointer' }}
+                                                        onClick={() => handleAddGradeShow(grade)}
+                                                    />
+                                                </td>
+                                            }
                                         </tr>
                                     );
                                 })}
@@ -185,15 +210,18 @@ function StudentSubjectGradeList({student, subject, classroom}) {
                     >
                         <Icon size={1} path={mdiReload}></Icon>
                     </Button>
-                    <Button
-                        variant="success"
-                        onClick={handleAddGradeShow}
-                    >
-                        <div className="d-flex flex-row gap-1 align-items-center">
-                            <Icon path={mdiPlus} size={1}></Icon>
-                            <span>Přidat známku</span>
-                        </div>
-                    </Button>
+                    {canEdit() &&
+                        <Button
+                            variant="success"
+                            onClick={() => handleAddGradeShow()}
+                        >
+                            <div className="d-flex flex-row gap-1 align-items-center">
+                                <Icon path={mdiPlus} size={1}></Icon>
+                                <span>Přidat známku</span>
+                            </div>
+                        </Button>
+                    }
+
                 </div>
             </Modal.Footer>
         </Modal>
@@ -201,13 +229,17 @@ function StudentSubjectGradeList({student, subject, classroom}) {
             student={student}
             subject={subject}
             classroom={classroom}
-            show={addGradeShow}
+            show={addGradeShow.state}
             setAddGradeShow={setAddGradeShow}
             onComplete={(grade) => handleGradeAdded(grade)}
+            grade={addGradeShow.data}
         />
         <Icon
             path={mdiClipboardListOutline}
-            style={{color: "grey", cursor: "pointer"}}
+            style={{
+                color: disabled ? 'lightgray' : "grey",
+                cursor: disabled ? "default" : "pointer"
+            }}
             size={1}
             onClick={handleShowModal}
         />

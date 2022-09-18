@@ -410,16 +410,6 @@
     "classroomId": "1e838cb06cfeb01c"
   },
   {
-    "subjectId": "495a2f53e28edd18",
-    "studentId": "9c939e35da27a672",
-    "dateTs": "2022-06-28T10:00:00.000Z",
-    "grade": 1,
-    "description": "Zkoušení",
-    "weight": 1,
-    "id": "GCI20TCY7HC3FRMX",
-    "classroomId": "1e838cb06cfeb01c"
-  },
-  {
     "subjectId": "e3c7b689a47e76b0",
     "studentId": "3a956f5f08486498",
     "dateTs": "2022-06-28T10:00:00.000Z",
@@ -780,16 +770,6 @@
     "classroomId": "f780b198cf290778"
   },
   {
-    "subjectId": "495a2f53e28edd18",
-    "studentId": "eadd8985be9de822",
-    "dateTs": "2022-06-28T10:00:00.000Z",
-    "grade": 4,
-    "description": "Zkoušení",
-    "weight": 1,
-    "id": "XNR13TGO6PY7WBHN",
-    "classroomId": "84d4e4261f30a2e5"
-  },
-  {
     "subjectId": "3f9e05bc4aaa380b",
     "studentId": "b02c0a9c6494b3da",
     "dateTs": "2022-06-28T10:00:00.000Z",
@@ -848,16 +828,6 @@
     "weight": 1,
     "id": "VNG95XBR6LH3FUKK",
     "classroomId": "f780b198cf290778"
-  },
-  {
-    "subjectId": "ae3f5077053c5579",
-    "studentId": "476a8ce2c0803af5",
-    "dateTs": "2022-06-28T10:00:00.000Z",
-    "grade": 3,
-    "description": "Zkoušení",
-    "weight": 0.5,
-    "id": "SXV98BHJ2WQ5HKPW",
-    "classroomId": "84d4e4261f30a2e5"
   },
   {
     "subjectId": "0258b9979e055af1",
@@ -1390,16 +1360,6 @@
     "classroomId": "1e838cb06cfeb01c"
   },
   {
-    "subjectId": "3f9e05bc4aaa380b",
-    "studentId": "476a8ce2c0803af5",
-    "dateTs": "2022-06-28T10:00:00.000Z",
-    "grade": 2,
-    "description": "Zkoušení",
-    "weight": 0.5,
-    "id": "XAD67CPU0LI6NZFF",
-    "classroomId": "1e838cb06cfeb01c"
-  },
-  {
     "subjectId": "495a2f53e28edd18",
     "studentId": "23f1ee37227e59c5",
     "dateTs": "2022-06-28T10:00:00.000Z",
@@ -1468,16 +1428,6 @@
     "weight": 2,
     "id": "LPX16PXO2WO7UAZI",
     "classroomId": "f780b198cf290778"
-  },
-  {
-    "subjectId": "495a2f53e28edd18",
-    "studentId": "9c939e35da27a672",
-    "dateTs": "2022-06-28T10:00:00.000Z",
-    "grade": 3,
-    "description": "Zkoušení",
-    "weight": 2,
-    "id": "ITB64LIO6XJ8ICXO",
-    "classroomId": "1e838cb06cfeb01c"
   },
   {
     "subjectId": "ae3f5077053c5579",
@@ -1628,16 +1578,6 @@
     "weight": 2,
     "id": "RKU55UBN9QO8HNFU",
     "classroomId": "f780b198cf290778"
-  },
-  {
-    "subjectId": "e3c7b689a47e76b0",
-    "studentId": "6797c49e1a286d52",
-    "dateTs": "2022-06-28T10:00:00.000Z",
-    "grade": 2,
-    "description": "Zkoušení",
-    "weight": 2,
-    "id": "VNE90EBK3TU4VGKQ",
-    "classroomId": "1e838cb06cfeb01c"
   },
   {
     "subjectId": "0258b9979e055af1",
@@ -2010,16 +1950,6 @@
     "classroomId": "1e838cb06cfeb01c"
   },
   {
-    "subjectId": "e3c7b689a47e76b0",
-    "studentId": "6797c49e1a286d52",
-    "dateTs": "2022-06-28T10:00:00.000Z",
-    "grade": 5,
-    "description": "Zkoušení",
-    "weight": 1,
-    "id": "CQO73DPL2EG9FTML",
-    "classroomId": "84d4e4261f30a2e5"
-  },
-  {
     "subjectId": "3f9e05bc4aaa380b",
     "studentId": "5c5cffa89a34ff0f",
     "dateTs": "2022-06-28T10:00:00.000Z",
@@ -2327,16 +2257,6 @@
     "description": "Zkoušení",
     "weight": 2,
     "id": "KIL48CYF2MC3EIQD",
-    "classroomId": "1e838cb06cfeb01c"
-  },
-  {
-    "subjectId": "3f9e05bc4aaa380b",
-    "studentId": "476a8ce2c0803af5",
-    "dateTs": "2022-06-28T10:00:00.000Z",
-    "grade": 4,
-    "description": "Zkoušení",
-    "weight": 2,
-    "id": "LPU61YUM5JR2UUCG",
     "classroomId": "1e838cb06cfeb01c"
   },
   {
@@ -3310,13 +3230,73 @@
     "classroomId": "84d4e4261f30a2e5"
   },
   {
-    "description": "d",
-    "dateTs": "2022-09-16",
-    "grade": 5,
-    "weight": 2,
+    "description": "Test",
+    "dateTs": "2022-08-02",
+    "grade": 1,
+    "weight": 1,
     "studentId": "8fd09f3f5e2b4326",
     "subjectId": "495a2f53e28edd18",
     "classroomId": "84d4e4261f30a2e5",
-    "id": "1bb71b5ccda56181"
+    "id": "ee1a10ea31d75443"
+  },
+  {
+    "description": "Test",
+    "dateTs": "2022-08-02",
+    "grade": 1,
+    "weight": 1,
+    "studentId": "8fd09f3f5e2b4326",
+    "subjectId": "495a2f53e28edd18",
+    "classroomId": "84d4e4261f30a2e5",
+    "id": "6489ed4256ac143c"
+  },
+  {
+    "description": "Test",
+    "dateTs": "2022-08-02",
+    "grade": 2,
+    "weight": 1,
+    "studentId": "8fd09f3f5e2b4326",
+    "subjectId": "495a2f53e28edd18",
+    "classroomId": "84d4e4261f30a2e5",
+    "id": "43a798679fc05a4d"
+  },
+  {
+    "description": "Test2",
+    "dateTs": "2022-08-02",
+    "grade": 3,
+    "weight": 1,
+    "studentId": "8fd09f3f5e2b4326",
+    "subjectId": "495a2f53e28edd18",
+    "classroomId": "84d4e4261f30a2e5",
+    "id": "bc4ae70ab610e1c3"
+  },
+  {
+    "description": "Test2",
+    "dateTs": "2022-08-02",
+    "grade": 3,
+    "weight": 1,
+    "studentId": "8fd09f3f5e2b4326",
+    "subjectId": "495a2f53e28edd18",
+    "classroomId": "84d4e4261f30a2e5",
+    "id": "77e373b57580f944"
+  },
+  {
+    "description": "Test2",
+    "dateTs": "2022-08-02",
+    "grade": 3,
+    "weight": 1,
+    "studentId": "8fd09f3f5e2b4326",
+    "subjectId": "495a2f53e28edd18",
+    "classroomId": "84d4e4261f30a2e5",
+    "id": "7875219bb888d084"
+  },
+  {
+    "description": "Test2",
+    "dateTs": "2022-08-02",
+    "grade": 4,
+    "weight": 1,
+    "studentId": "8fd09f3f5e2b4326",
+    "subjectId": "495a2f53e28edd18",
+    "classroomId": "84d4e4261f30a2e5",
+    "id": "ce7745e98fc04b0c"
   }
 ]

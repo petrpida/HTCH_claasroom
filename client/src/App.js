@@ -1,4 +1,5 @@
-import  { useState, useEffect } from "react";
+import {useState, useEffect, useContext} from "react";
+import UserContext from "./UserProvider";
 import {Outlet, useNavigate} from "react-router-dom";
 import {Container, Nav, Navbar, NavDropdown, Offcanvas} from "react-bootstrap";
 import Icon from "@mdi/react";
@@ -7,6 +8,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 function App() {
+    const {
+        user,
+        users,
+        changeUser,
+        isLoggedIn,
+        getClassroomsToShow
+    } = useContext(UserContext)
     const [listClassroomsCall, setListClassroomsCall] = useState({
         state: "pending",
     });
@@ -18,9 +26,9 @@ function App() {
         }).then(async (response) => {
             const responseJson = await response.json();
             if (response.status >= 400) {
-                setListClassroomsCall({ state: "error", error: responseJson });
+                setListClassroomsCall({state: "error", error: responseJson});
             } else {
-                setListClassroomsCall({ state: "success", data: responseJson });
+                setListClassroomsCall({state: "success", data: responseJson});
             }
         });
     }, []);
@@ -30,30 +38,38 @@ function App() {
             case "pending":
                 return (
                     <Nav.Link disabled={true}>
-                        <Icon size={1} path={mdiLoading} spin={true} /> Classroom List
+                        <Icon size={1} path={mdiLoading} spin={true}/> Classroom List
                     </Nav.Link>
                 );
             case "success":
-                return (
-                    <NavDropdown title="Select Classroom" id="navbarScrollingDropdown">
-                        {listClassroomsCall.data.map((classroom) => {
-                            return (
-                                <NavDropdown.Item
-                                    key={classroom.id}
-                                    onClick={() =>
-                                        navigate("/classroomDetail?id=" + classroom.id)
-                                    }
-                                >
-                                    {classroom.name}
-                                </NavDropdown.Item>
-                            );
-                        })}
-                    </NavDropdown>
-                );
+                if (isLoggedIn()) {
+                    return (
+                        <NavDropdown title="Select Classroom" id="navbarScrollingDropdown">
+                            {listClassroomsCall.data.map((classroom) => {
+                                const allowedClassrooms = getClassroomsToShow(listClassroomsCall.data)
+
+                                if (allowedClassrooms.includes(classroom.id)) {
+                                    return (
+                                        <NavDropdown.Item
+                                            key={classroom.id}
+                                            onClick={() =>
+                                                navigate("/classroomDetail?id=" + classroom.id)
+                                            }
+                                        >
+                                            {classroom.name}
+                                        </NavDropdown.Item>
+                                    );
+                                } else
+                                    return <></>
+                            })}
+                        </NavDropdown>
+                    );
+                } return (<>{" "}</>)
+
             case "error":
                 return (
                     <div>
-                        <Icon size={1} path={mdiAlertOctagonOutline} /> Error
+                        <Icon size={1} path={mdiAlertOctagonOutline}/> Error
                     </div>
                 );
             default:
@@ -74,7 +90,7 @@ function App() {
                     <Navbar.Brand onClick={() => navigate("/")}>
                         Simple School
                     </Navbar.Brand>
-                    <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-sm`} />
+                    <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-sm`}/>
                     <Navbar.Offcanvas id={`offcanvasNavbar-expand-sm`}>
                         <Offcanvas.Header closeButton>
                             <Offcanvas.Title id={`offcanvasNavbarLabel-expand-sm`}>
@@ -90,12 +106,24 @@ function App() {
                                 <Nav.Link onClick={() => navigate("/subjectList")}>
                                     Předměty
                                 </Nav.Link>
+                                <NavDropdown align="end" title={user.fullName ?? 'Nepřihlášen'}>
+                                    {users.map(user => {
+                                        return (
+                                            <NavDropdown.Item key={user.id} onClick={() => changeUser(user.id)}>
+                                                {user.fullName} ({user.role.name})
+                                            </NavDropdown.Item>
+                                        )
+                                    })}
+                                    <NavDropdown.Item onClick={() => changeUser(-1)}>
+                                        Odhlásit se
+                                    </NavDropdown.Item>
+                                </NavDropdown>
                             </Nav>
                         </Offcanvas.Body>
                     </Navbar.Offcanvas>
                 </Container>
             </Navbar>
-            <Outlet />
+            <Outlet/>
         </div>
     )
 }
