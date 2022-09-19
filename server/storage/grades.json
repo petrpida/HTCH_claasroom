@@ -1782,8 +1782,8 @@
   {
     "subjectId": "ae3f5077053c5579",
     "studentId": "6797c49e1a286d52",
-    "dateTs": "2022-06-28T10:00:00.000Z",
-    "grade": 5,
+    "dateTs": "2022-06-28",
+    "grade": 3,
     "description": "Zkoušení",
     "weight": 1,
     "id": "JKJ81IQX4LD4SXNN",
@@ -2092,8 +2092,8 @@
   {
     "subjectId": "495a2f53e28edd18",
     "studentId": "eadd8985be9de822",
-    "dateTs": "2022-06-28T10:00:00.000Z",
-    "grade": 2,
+    "dateTs": "2022-06-28",
+    "grade": 4,
     "description": "Zkoušení",
     "weight": 2,
     "id": "PGJ61LEM8NZ6RAGM",
@@ -3298,5 +3298,25 @@
     "subjectId": "495a2f53e28edd18",
     "classroomId": "84d4e4261f30a2e5",
     "id": "ce7745e98fc04b0c"
+  },
+  {
+    "description": "test",
+    "dateTs": "2022-09-16",
+    "grade": 2,
+    "weight": 1,
+    "studentId": "b02c0a9c6494b3da",
+    "subjectId": "0258b9979e055af1",
+    "id": "03073a32b064a0cf",
+    "classroomId": "3aa1b99e902f5175"
+  },
+  {
+    "description": "kotoul",
+    "dateTs": "2022-09-19",
+    "grade": 1,
+    "weight": 2,
+    "studentId": "b02c0a9c6494b3da",
+    "subjectId": "fe9919c1c95564cc",
+    "id": "b6267f3b5b966cb7",
+    "classroomId": "3aa1b99e902f5175"
   }
 ]
