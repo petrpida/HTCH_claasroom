@@ -2490,16 +2490,6 @@
     "classroomId": "84d4e4261f30a2e5"
   },
   {
-    "subjectId": "495a2f53e28edd18",
-    "studentId": "573aaf0225b01132",
-    "dateTs": "2022-06-28T10:00:00.000Z",
-    "grade": 4,
-    "description": "Zkoušení",
-    "weight": 2,
-    "id": "FVF27GLX2NZ6AKHE",
-    "classroomId": "1e838cb06cfeb01c"
-  },
-  {
     "subjectId": "0258b9979e055af1",
     "studentId": "ca2a6214b06da004",
     "dateTs": "2022-06-28T10:00:00.000Z",
@@ -2697,16 +2687,6 @@
     "description": "Zkoušení",
     "weight": 2,
     "id": "SMS30GDN8OW5YFCB",
-    "classroomId": "1e838cb06cfeb01c"
-  },
-  {
-    "subjectId": "dc3fd3109eb041ff",
-    "studentId": "573aaf0225b01132",
-    "dateTs": "2022-06-28T10:00:00.000Z",
-    "grade": 3,
-    "description": "Zkoušení",
-    "weight": 1,
-    "id": "FWF13DRW1JH4UNLS",
     "classroomId": "1e838cb06cfeb01c"
   },
   {

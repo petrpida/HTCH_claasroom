@@ -10,8 +10,8 @@ function StudentGradeDelete({grade, onDelete, onError}) {
     })
 
     const handleDelete = async () => {
-        if (deleteGradeCall.state = "pending")
-            return
+        // if (deleteGradeCall.state = "pending")
+        //     return
 
         setDeleteGradeCall({state: "pending"})
 
@@ -47,11 +47,13 @@ function StudentGradeDelete({grade, onDelete, onError}) {
             confirmText="Smazat"
             onConfirm={handleDelete}
         >
-            <Icon
-                path={mdiTrashCanOutline}
-                style={{cursor: 'pointer', color: 'red'}}
-                size={0.8}
-            ></Icon>
+            <div>
+                <Icon
+                    path={mdiTrashCanOutline}
+                    style={{cursor: 'pointer', color: 'red'}}
+                    size={0.8}
+                ></Icon>
+            </div>
         </Confirmation>
     )
 }
