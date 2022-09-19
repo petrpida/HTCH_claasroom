@@ -26,7 +26,6 @@ function Student (props) {
                         let average = subject.averageGrade;
                         if (average) average = average.toFixed(1);
                         else average = "N";
-                        console.log(props.student.classroomId)
                         const disabled = !canShowDetail(props.student.classroomId, subject.id);
 
                         return (

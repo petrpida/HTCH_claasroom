@@ -1,5 +1,5 @@
 import Icon from "@mdi/react";
-import {Button, Modal, Table} from 'react-bootstrap';
+import {Alert, Button, Modal, Table} from 'react-bootstrap';
 import {
     mdiCalendar,
     mdiClipboardListOutline,
@@ -13,6 +13,7 @@ import {
 import {useContext, useEffect, useMemo, useState} from 'react'
 import {getColorByGrade} from "../helpers/common";
 import StudentGradeForm from "./StudentGradeForm";
+import StudentGradeDelete from "./StudentGradeDelete"
 import UserContext from "../UserProvider";
 
 function StudentSubjectGradeList({student, subject, classroom, disabled}) {
@@ -25,6 +26,15 @@ function StudentSubjectGradeList({student, subject, classroom, disabled}) {
     const [addGradeShow, setAddGradeShow] = useState({
         state: false
     });
+    const [deleteGradeError, setDeleteGradeError] = useState('');
+    const handleGradeDeleted = (gradeId) => {
+        if (studentSubjectGradeListCall.state === "success") {
+            setStudentSubjectGradeListCall({
+                state: "success",
+                data: studentSubjectGradeListCall.data.filter((g) => g.id !== gradeId)
+            });
+        }
+    }
 
     const handleAddGradeShow = (data) => setAddGradeShow({state: true, data});
     const handleShowModal = () => {
@@ -77,7 +87,6 @@ function StudentSubjectGradeList({student, subject, classroom, disabled}) {
         if (res.status >= 400) {
             setStudentSubjectGradeListCall({state: "error", error: data});
         } else {
-            console.log(data)
             setStudentSubjectGradeListCall({state: "success", data});
         }
     };
@@ -92,6 +101,11 @@ function StudentSubjectGradeList({student, subject, classroom, disabled}) {
                 <Modal.Title>Přehled známek</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                {deleteGradeError &&
+                    <Alert variant="danger">
+                        Error: { deleteGradeError }
+                    </Alert>
+                }
                 <div>
                     <div>
                         <span className="text-muted">Žák: </span>
@@ -103,7 +117,7 @@ function StudentSubjectGradeList({student, subject, classroom, disabled}) {
                     </div>
                     <div>
                         <span className="text-muted">Průměr: </span>
-                        <b style={{ color: getColorByGrade(average) }}>{typeof average === 'number' ? average.toFixed(1) : average}</b>
+                        <b style={{color: getColorByGrade(average)}}>{typeof average === 'number' ? average.toFixed(1) : average}</b>
                     </div>
                 </div>
                 {studentSubjectGradeListCall.state === "pending" && (
@@ -114,66 +128,75 @@ function StudentSubjectGradeList({student, subject, classroom, disabled}) {
 
                 {studentSubjectGradeListCall.state === "success" && (
                     <div style={{maxHeight: "55vh", overflow: "auto"}}>
-                            <Table className="mt-3" striped>
-                                <thead>
-                                <tr>
-                                    <th style={{ width: "40px", color: "grey" }}>
-                                        <Icon size={1} path={mdiStar} />
-                                    </th>
-                                    <th style={{ width: "40px", color: "grey" }}>
-                                        <Icon size={1} path={mdiWeight} />
-                                    </th>
-                                    <th style={{ color: "grey" }}>
-                                        <Icon size={1} path={mdiText} />
-                                    </th>
-                                    <th style={{ width: "120px", color: "grey" }}>
-                                        <Icon size={1} path={mdiCalendar} />
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {studentSubjectGradeListCall.data.map((grade) => {
-                                    return (
-                                        <tr key={grade.id}>
+                        <Table className="mt-3" striped>
+                            <thead>
+                            <tr>
+                                <th style={{width: "40px", color: "grey"}}>
+                                    <Icon size={1} path={mdiStar}/>
+                                </th>
+                                <th style={{width: "40px", color: "grey"}}>
+                                    <Icon size={1} path={mdiWeight}/>
+                                </th>
+                                <th style={{color: "grey"}}>
+                                    <Icon size={1} path={mdiText}/>
+                                </th>
+                                <th style={{width: "120px", color: "grey"}}>
+                                    <Icon size={1} path={mdiCalendar}/>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {studentSubjectGradeListCall.data.map((grade) => {
+                                return (
+                                    <tr key={grade.id}>
 
-                                            <td
-                                                style={{
-                                                    color: getColorByGrade(grade.grade),
-                                                    textAlign: "center",
-                                                }}
-                                            >
-                                                <b>{grade.grade}</b>
-                                            </td>
-                                            <td
-                                                style={{
-                                                    textAlign: "center",
-                                                }}
-                                            >
-                                                {grade.weight}
-                                            </td>
-                                            <td>{grade.description}</td>
-                                            <td
-                                                style={{
-                                                    textAlign: "center",
-                                                }}
-                                            >
-                                                {new Date(grade.dateTs).toLocaleDateString()}
-                                            </td>
-                                            {canEdit() &&
+                                        <td
+                                            style={{
+                                                color: getColorByGrade(grade.grade),
+                                                textAlign: "center",
+                                            }}
+                                        >
+                                            <b>{grade.grade}</b>
+                                        </td>
+                                        <td
+                                            style={{
+                                                textAlign: "center",
+                                            }}
+                                        >
+                                            {grade.weight}
+                                        </td>
+                                        <td>{grade.description}</td>
+                                        <td
+                                            style={{
+                                                textAlign: "center",
+                                            }}
+                                        >
+                                            {new Date(grade.dateTs).toLocaleDateString()}
+                                        </td>
+                                        {canEdit() &&
+                                            <>
                                                 <td>
                                                     <Icon
                                                         size={0.8}
                                                         path={mdiPencilOutline}
-                                                        style={{ color: 'orange', cursor: 'pointer' }}
+                                                        style={{color: 'orange', cursor: 'pointer'}}
                                                         onClick={() => handleAddGradeShow(grade)}
                                                     />
                                                 </td>
-                                            }
-                                        </tr>
-                                    );
-                                })}
-                                </tbody>
-                            </Table>
+                                                <td>
+                                                    <StudentGradeDelete
+                                                        grade={grade}
+                                                        onDelete={(id) => handleGradeDeleted(id)}
+                                                        onError={(error) => setDeleteGradeError(error)}>
+                                                    </StudentGradeDelete>
+                                                </td>
+                                            </>
+                                        }
+                                    </tr>
+                                );
+                            })}
+                            </tbody>
+                        </Table>
                     </div>
                 )}
 
