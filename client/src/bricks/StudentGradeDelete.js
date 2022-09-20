@@ -10,8 +10,8 @@ function StudentGradeDelete({grade, onDelete, onError}) {
     })
 
     const handleDelete = async () => {
-        // if (deleteGradeCall.state = "pending")
-        //     return
+        if (deleteGradeCall.state === "pending")
+            return
 
         setDeleteGradeCall({state: "pending"})
 

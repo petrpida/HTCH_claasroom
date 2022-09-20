@@ -690,16 +690,6 @@
     "classroomId": "f780b198cf290778"
   },
   {
-    "subjectId": "495a2f53e28edd18",
-    "studentId": "d9422ca2ec991a1d",
-    "dateTs": "2022-06-28T10:00:00.000Z",
-    "grade": 3,
-    "description": "Zkoušení",
-    "weight": 0.5,
-    "id": "UDT58PTI8KS4HHHH",
-    "classroomId": "1e838cb06cfeb01c"
-  },
-  {
     "subjectId": "ae3f5077053c5579",
     "studentId": "371fea4d0d3f2eb3",
     "dateTs": "2022-06-28T10:00:00.000Z",
@@ -3030,16 +3020,6 @@
     "classroomId": "f780b198cf290778"
   },
   {
-    "subjectId": "495a2f53e28edd18",
-    "studentId": "d9422ca2ec991a1d",
-    "dateTs": "2022-06-28T10:00:00.000Z",
-    "grade": 1,
-    "description": "Zkoušení",
-    "weight": 1,
-    "id": "DZH85YDQ6XF3KIUX",
-    "classroomId": "1e838cb06cfeb01c"
-  },
-  {
     "subjectId": "e3c7b689a47e76b0",
     "studentId": "b09de95269c6a4fc",
     "dateTs": "2022-06-28T10:00:00.000Z",
@@ -3198,16 +3178,6 @@
     "weight": 1,
     "id": "QHX35DOS7BX1KQDB",
     "classroomId": "1e838cb06cfeb01c"
-  },
-  {
-    "subjectId": "495a2f53e28edd18",
-    "studentId": "89a02d268b67cf7d",
-    "dateTs": "2022-06-28T10:00:00.000Z",
-    "grade": 2,
-    "description": "Zkoušení",
-    "weight": 1,
-    "id": "RCN61ZKX1HE1FRTK",
-    "classroomId": "84d4e4261f30a2e5"
   },
   {
     "description": "Test",
